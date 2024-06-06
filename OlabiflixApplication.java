@@ -1,0 +1,35 @@
+package com.olabi.olabiflix;
+
+import com.olabi.olabiflix.model.entity.Movie;
+import com.olabi.olabiflix.repository.MovieRepository;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@SpringBootApplication
+@RestController
+public class OlabiflixApplication {
+
+	private final MovieRepository repository;
+
+	public OlabiflixApplication(MovieRepository repository) {
+		this.repository = repository;
+	}
+
+	public static void main(String[] args) {
+		SpringApplication.run(OlabiflixApplication.class, args);
+	}
+
+	@GetMapping("/hello")
+	public String hello() {
+		return "Salve, mundão!";
+	}
+
+	@GetMapping("/filmes")
+	public List<Movie> getMovie() {
+		return repository.findAll();
+	}
+}
